@@ -1,0 +1,887 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="AprobacionDocente">
+          <Key>
+            <PropertyRef Name="nIdAprobacionDocente" />
+          </Key>
+          <Property Name="nIdAprobacionDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nIdDocenteSugerido" Type="int" Nullable="false" />
+          <Property Name="Usuario_nIdUsuario" Type="int" Nullable="false" />
+          <Property Name="cEstado" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="nIdCarrera" />
+          </Key>
+          <Property Name="nIdCarrera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNombre" Type="varchar" MaxLength="200" />
+          <Property Name="cDescCarrera" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="nIdCurso" />
+          </Key>
+          <Property Name="nIdCurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNombre" Type="varchar" MaxLength="200" />
+          <Property Name="cDescCurso" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="DetalleDocente">
+          <Key>
+            <PropertyRef Name="idDetalleDocente" />
+          </Key>
+          <Property Name="idDetalleDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Carrera_nIdCarrera" Type="int" Nullable="false" />
+          <Property Name="Curso_nIdCurso" Type="int" Nullable="false" />
+          <Property Name="Docente_nIdDocente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="nIdDocente" />
+          </Key>
+          <Property Name="nIdDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNombres" Type="varchar" MaxLength="200" />
+          <Property Name="cApePaterno" Type="varchar" MaxLength="200" />
+          <Property Name="cApeMaterno" Type="varchar" MaxLength="200" />
+          <Property Name="cEstado" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocenteSugerido">
+          <Key>
+            <PropertyRef Name="nIdDocenteSugerido" />
+          </Key>
+          <Property Name="nIdDocenteSugerido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cNombres" Type="varchar" MaxLength="45" />
+          <Property Name="cApePaterno" Type="varchar" MaxLength="200" />
+          <Property Name="cApeMaterno" Type="varchar" MaxLength="200" />
+          <Property Name="Carrera_nIdCarrera" Type="int" Nullable="false" />
+          <Property Name="Curso_nIdCurso" Type="int" Nullable="false" />
+          <Property Name="Usuario_nIdUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RankingDocente">
+          <Key>
+            <PropertyRef Name="idRankingDocente" />
+          </Key>
+          <Property Name="idRankingDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cComentarios" Type="varchar" MaxLength="300" />
+          <Property Name="nPuntucionCriterio1" Type="int" />
+          <Property Name="nPuntucionCriterio2" Type="int" />
+          <Property Name="nPuntucionCriterio3" Type="int" />
+          <Property Name="dtFecha" Type="date" />
+          <Property Name="nIdUsuario" Type="int" Nullable="false" />
+          <Property Name="nIdDetalleDocente" Type="int" Nullable="false" />
+          <Property Name="nPuntuacionPromedio" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="nIdTipoUsuario" />
+          </Key>
+          <Property Name="nIdTipoUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cDescTipoUsuario" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="nIdUsuario" />
+          </Key>
+          <Property Name="nIdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cContrasena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cNombres" Type="varchar" MaxLength="200" />
+          <Property Name="cApePaterno" Type="varchar" MaxLength="200" />
+          <Property Name="cApeMaterno" Type="varchar" MaxLength="200" />
+          <Property Name="cCorreo" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="cEstado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="nIdTipoUsuario" Type="int" Nullable="false" />
+          <Property Name="nIdCarrera" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_AprobacionDocente_DocenteSugerido1">
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="1" />
+          <End Role="AprobacionDocente" Type="Self.AprobacionDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocenteSugerido">
+              <PropertyRef Name="nIdDocenteSugerido" />
+            </Principal>
+            <Dependent Role="AprobacionDocente">
+              <PropertyRef Name="nIdDocenteSugerido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AprobacionDocente_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AprobacionDocente" Type="Self.AprobacionDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="nIdUsuario" />
+            </Principal>
+            <Dependent Role="AprobacionDocente">
+              <PropertyRef Name="Usuario_nIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DetalleDocente_Carrera1">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="nIdCarrera" />
+            </Principal>
+            <Dependent Role="DetalleDocente">
+              <PropertyRef Name="Carrera_nIdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DetalleDocente_Curso1">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="nIdCurso" />
+            </Principal>
+            <Dependent Role="DetalleDocente">
+              <PropertyRef Name="Curso_nIdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DetalleDocente_Docente1">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="nIdDocente" />
+            </Principal>
+            <Dependent Role="DetalleDocente">
+              <PropertyRef Name="Docente_nIdDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DocenteSugerido_Carrera1">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="nIdCarrera" />
+            </Principal>
+            <Dependent Role="DocenteSugerido">
+              <PropertyRef Name="Carrera_nIdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DocenteSugerido_Curso1">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="nIdCurso" />
+            </Principal>
+            <Dependent Role="DocenteSugerido">
+              <PropertyRef Name="Curso_nIdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DocenteSugerido_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="nIdUsuario" />
+            </Principal>
+            <Dependent Role="DocenteSugerido">
+              <PropertyRef Name="Usuario_nIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RankingDocente_DetalleDocente1">
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="1" />
+          <End Role="RankingDocente" Type="Self.RankingDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DetalleDocente">
+              <PropertyRef Name="idDetalleDocente" />
+            </Principal>
+            <Dependent Role="RankingDocente">
+              <PropertyRef Name="nIdDetalleDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RankingDocente_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RankingDocente" Type="Self.RankingDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="nIdUsuario" />
+            </Principal>
+            <Dependent Role="RankingDocente">
+              <PropertyRef Name="nIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_Carrera1">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="nIdCarrera" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="nIdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_TipoUsuario">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="nIdTipoUsuario" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="nIdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_INS_RegistrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cNombres" Type="varchar" Mode="In" />
+          <Parameter Name="cUsuApePaterno" Type="varchar" Mode="In" />
+          <Parameter Name="cUsuApeMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="cCorreo" Type="varchar" Mode="In" />
+          <Parameter Name="cContraseña" Type="varchar" Mode="In" />
+          <Parameter Name="nIdCarrera" Type="int" Mode="In" />
+          <Parameter Name="nTipoUsuario" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DbContextStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AprobacionDocente" EntityType="Self.AprobacionDocente" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="Carrera" EntityType="Self.Carrera" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="DetalleDocente" EntityType="Self.DetalleDocente" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="Docente" EntityType="Self.Docente" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="DocenteSugerido" EntityType="Self.DocenteSugerido" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="RankingDocente" EntityType="Self.RankingDocente" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="edson_sa" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="edson_sa" store:Type="Tables" />
+          <AssociationSet Name="fk_AprobacionDocente_DocenteSugerido1" Association="Self.fk_AprobacionDocente_DocenteSugerido1">
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+            <End Role="AprobacionDocente" EntitySet="AprobacionDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AprobacionDocente_Usuario1" Association="Self.fk_AprobacionDocente_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AprobacionDocente" EntitySet="AprobacionDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DetalleDocente_Carrera1" Association="Self.fk_DetalleDocente_Carrera1">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DetalleDocente_Curso1" Association="Self.fk_DetalleDocente_Curso1">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DetalleDocente_Docente1" Association="Self.fk_DetalleDocente_Docente1">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DocenteSugerido_Carrera1" Association="Self.fk_DocenteSugerido_Carrera1">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DocenteSugerido_Curso1" Association="Self.fk_DocenteSugerido_Curso1">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DocenteSugerido_Usuario1" Association="Self.fk_DocenteSugerido_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RankingDocente_DetalleDocente1" Association="Self.fk_RankingDocente_DetalleDocente1">
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+            <End Role="RankingDocente" EntitySet="RankingDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RankingDocente_Usuario1" Association="Self.fk_RankingDocente_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RankingDocente" EntitySet="RankingDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_Carrera1" Association="Self.fk_Usuario_Carrera1">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_TipoUsuario" Association="Self.fk_Usuario_TipoUsuario">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbContext" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AprobacionDocente">
+          <Key>
+            <PropertyRef Name="nIdAprobacionDocente" />
+          </Key>
+          <Property Name="nIdAprobacionDocente" Type="Int32" Nullable="false" />
+          <Property Name="nIdDocenteSugerido" Type="Int32" Nullable="false" />
+          <Property Name="Usuario_nIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="cEstado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="DocenteSugerido" Relationship="Self.fk_AprobacionDocente_DocenteSugerido1" FromRole="AprobacionDocente" ToRole="DocenteSugerido" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_AprobacionDocente_Usuario1" FromRole="AprobacionDocente" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="nIdCarrera" />
+          </Key>
+          <Property Name="nIdCarrera" Type="Int32" Nullable="false" />
+          <Property Name="cNombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cDescCarrera" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DetalleDocente" Relationship="Self.fk_DetalleDocente_Carrera1" FromRole="Carrera" ToRole="DetalleDocente" />
+          <NavigationProperty Name="DocenteSugerido" Relationship="Self.fk_DocenteSugerido_Carrera1" FromRole="Carrera" ToRole="DocenteSugerido" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_Usuario_Carrera1" FromRole="Carrera" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="nIdCurso" />
+          </Key>
+          <Property Name="nIdCurso" Type="Int32" Nullable="false" />
+          <Property Name="cNombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cDescCurso" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DetalleDocente" Relationship="Self.fk_DetalleDocente_Curso1" FromRole="Curso" ToRole="DetalleDocente" />
+          <NavigationProperty Name="DocenteSugerido" Relationship="Self.fk_DocenteSugerido_Curso1" FromRole="Curso" ToRole="DocenteSugerido" />
+        </EntityType>
+        <EntityType Name="DetalleDocente">
+          <Key>
+            <PropertyRef Name="idDetalleDocente" />
+          </Key>
+          <Property Name="idDetalleDocente" Type="Int32" Nullable="false" />
+          <Property Name="Carrera_nIdCarrera" Type="Int32" Nullable="false" />
+          <Property Name="Curso_nIdCurso" Type="Int32" Nullable="false" />
+          <Property Name="Docente_nIdDocente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carrera" Relationship="Self.fk_DetalleDocente_Carrera1" FromRole="DetalleDocente" ToRole="Carrera" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_DetalleDocente_Curso1" FromRole="DetalleDocente" ToRole="Curso" />
+          <NavigationProperty Name="Docente" Relationship="Self.fk_DetalleDocente_Docente1" FromRole="DetalleDocente" ToRole="Docente" />
+          <NavigationProperty Name="RankingDocente" Relationship="Self.fk_RankingDocente_DetalleDocente1" FromRole="DetalleDocente" ToRole="RankingDocente" />
+        </EntityType>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="nIdDocente" />
+          </Key>
+          <Property Name="nIdDocente" Type="Int32" Nullable="false" />
+          <Property Name="cNombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cApePaterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cApeMaterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cEstado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DetalleDocente" Relationship="Self.fk_DetalleDocente_Docente1" FromRole="Docente" ToRole="DetalleDocente" />
+        </EntityType>
+        <EntityType Name="DocenteSugerido">
+          <Key>
+            <PropertyRef Name="nIdDocenteSugerido" />
+          </Key>
+          <Property Name="nIdDocenteSugerido" Type="Int32" Nullable="false" />
+          <Property Name="cNombres" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="cApePaterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cApeMaterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Carrera_nIdCarrera" Type="Int32" Nullable="false" />
+          <Property Name="Curso_nIdCurso" Type="Int32" Nullable="false" />
+          <Property Name="Usuario_nIdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AprobacionDocente" Relationship="Self.fk_AprobacionDocente_DocenteSugerido1" FromRole="DocenteSugerido" ToRole="AprobacionDocente" />
+          <NavigationProperty Name="Carrera" Relationship="Self.fk_DocenteSugerido_Carrera1" FromRole="DocenteSugerido" ToRole="Carrera" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_DocenteSugerido_Curso1" FromRole="DocenteSugerido" ToRole="Curso" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_DocenteSugerido_Usuario1" FromRole="DocenteSugerido" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="RankingDocente">
+          <Key>
+            <PropertyRef Name="idRankingDocente" />
+          </Key>
+          <Property Name="idRankingDocente" Type="Int32" Nullable="false" />
+          <Property Name="cComentarios" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="nPuntucionCriterio1" Type="Int32" />
+          <Property Name="nPuntucionCriterio2" Type="Int32" />
+          <Property Name="nPuntucionCriterio3" Type="Int32" />
+          <Property Name="dtFecha" Type="DateTime" Precision="0" />
+          <Property Name="nIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="nIdDetalleDocente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetalleDocente" Relationship="Self.fk_RankingDocente_DetalleDocente1" FromRole="RankingDocente" ToRole="DetalleDocente" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_RankingDocente_Usuario1" FromRole="RankingDocente" ToRole="Usuario" />
+          <Property Name="nPuntuacionPromedio" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="nIdTipoUsuario" />
+          </Key>
+          <Property Name="nIdTipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="cDescTipoUsuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_Usuario_TipoUsuario" FromRole="TipoUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="nIdUsuario" />
+          </Key>
+          <Property Name="nIdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="cContrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cNombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cApePaterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cApeMaterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cCorreo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cEstado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="nIdTipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="nIdCarrera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AprobacionDocente" Relationship="Self.fk_AprobacionDocente_Usuario1" FromRole="Usuario" ToRole="AprobacionDocente" />
+          <NavigationProperty Name="Carrera" Relationship="Self.fk_Usuario_Carrera1" FromRole="Usuario" ToRole="Carrera" />
+          <NavigationProperty Name="DocenteSugerido" Relationship="Self.fk_DocenteSugerido_Usuario1" FromRole="Usuario" ToRole="DocenteSugerido" />
+          <NavigationProperty Name="RankingDocente" Relationship="Self.fk_RankingDocente_Usuario1" FromRole="Usuario" ToRole="RankingDocente" />
+          <NavigationProperty Name="TipoUsuario" Relationship="Self.fk_Usuario_TipoUsuario" FromRole="Usuario" ToRole="TipoUsuario" />
+        </EntityType>
+        <Association Name="fk_AprobacionDocente_DocenteSugerido1">
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="1" />
+          <End Role="AprobacionDocente" Type="Self.AprobacionDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocenteSugerido">
+              <PropertyRef Name="nIdDocenteSugerido" />
+            </Principal>
+            <Dependent Role="AprobacionDocente">
+              <PropertyRef Name="nIdDocenteSugerido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AprobacionDocente_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="AprobacionDocente" Type="Self.AprobacionDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="nIdUsuario" />
+            </Principal>
+            <Dependent Role="AprobacionDocente">
+              <PropertyRef Name="Usuario_nIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DetalleDocente_Carrera1">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="nIdCarrera" />
+            </Principal>
+            <Dependent Role="DetalleDocente">
+              <PropertyRef Name="Carrera_nIdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DocenteSugerido_Carrera1">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="nIdCarrera" />
+            </Principal>
+            <Dependent Role="DocenteSugerido">
+              <PropertyRef Name="Carrera_nIdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_Carrera1">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="nIdCarrera" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="nIdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DetalleDocente_Curso1">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="nIdCurso" />
+            </Principal>
+            <Dependent Role="DetalleDocente">
+              <PropertyRef Name="Curso_nIdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DocenteSugerido_Curso1">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="nIdCurso" />
+            </Principal>
+            <Dependent Role="DocenteSugerido">
+              <PropertyRef Name="Curso_nIdCurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DetalleDocente_Docente1">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="nIdDocente" />
+            </Principal>
+            <Dependent Role="DetalleDocente">
+              <PropertyRef Name="Docente_nIdDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RankingDocente_DetalleDocente1">
+          <End Role="DetalleDocente" Type="Self.DetalleDocente" Multiplicity="1" />
+          <End Role="RankingDocente" Type="Self.RankingDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DetalleDocente">
+              <PropertyRef Name="idDetalleDocente" />
+            </Principal>
+            <Dependent Role="RankingDocente">
+              <PropertyRef Name="nIdDetalleDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DocenteSugerido_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="DocenteSugerido" Type="Self.DocenteSugerido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="nIdUsuario" />
+            </Principal>
+            <Dependent Role="DocenteSugerido">
+              <PropertyRef Name="Usuario_nIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RankingDocente_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RankingDocente" Type="Self.RankingDocente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="nIdUsuario" />
+            </Principal>
+            <Dependent Role="RankingDocente">
+              <PropertyRef Name="nIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_TipoUsuario">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="nIdTipoUsuario" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="nIdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DefaultConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="AprobacionDocente" EntityType="Self.AprobacionDocente" />
+          <EntitySet Name="Carrera" EntityType="Self.Carrera" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="DetalleDocente" EntityType="Self.DetalleDocente" />
+          <EntitySet Name="Docente" EntityType="Self.Docente" />
+          <EntitySet Name="DocenteSugerido" EntityType="Self.DocenteSugerido" />
+          <EntitySet Name="RankingDocente" EntityType="Self.RankingDocente" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_AprobacionDocente_DocenteSugerido1" Association="Self.fk_AprobacionDocente_DocenteSugerido1">
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+            <End Role="AprobacionDocente" EntitySet="AprobacionDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AprobacionDocente_Usuario1" Association="Self.fk_AprobacionDocente_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="AprobacionDocente" EntitySet="AprobacionDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DetalleDocente_Carrera1" Association="Self.fk_DetalleDocente_Carrera1">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DocenteSugerido_Carrera1" Association="Self.fk_DocenteSugerido_Carrera1">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_Carrera1" Association="Self.fk_Usuario_Carrera1">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DetalleDocente_Curso1" Association="Self.fk_DetalleDocente_Curso1">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DocenteSugerido_Curso1" Association="Self.fk_DocenteSugerido_Curso1">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DetalleDocente_Docente1" Association="Self.fk_DetalleDocente_Docente1">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RankingDocente_DetalleDocente1" Association="Self.fk_RankingDocente_DetalleDocente1">
+            <End Role="DetalleDocente" EntitySet="DetalleDocente" />
+            <End Role="RankingDocente" EntitySet="RankingDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DocenteSugerido_Usuario1" Association="Self.fk_DocenteSugerido_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DocenteSugerido" EntitySet="DocenteSugerido" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RankingDocente_Usuario1" Association="Self.fk_RankingDocente_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RankingDocente" EntitySet="RankingDocente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_TipoUsuario" Association="Self.fk_Usuario_TipoUsuario">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DbContext.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DbContext.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_INS_RegistrarUsuario">
+            <Parameter Name="cNombres" Mode="In" Type="String" />
+            <Parameter Name="cUsuApePaterno" Mode="In" Type="String" />
+            <Parameter Name="cUsuApeMaterno" Mode="In" Type="String" />
+            <Parameter Name="cCorreo" Mode="In" Type="String" />
+            <Parameter Name="cContraseña" Mode="In" Type="String" />
+            <Parameter Name="nIdCarrera" Mode="In" Type="Int32" />
+            <Parameter Name="nTipoUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbContextStoreContainer" CdmEntityContainer="DefaultConnection">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DbContext.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AprobacionDocente">
+            <EntityTypeMapping TypeName="DbContext.AprobacionDocente">
+              <MappingFragment StoreEntitySet="AprobacionDocente">
+                <ScalarProperty Name="nIdAprobacionDocente" ColumnName="nIdAprobacionDocente" />
+                <ScalarProperty Name="nIdDocenteSugerido" ColumnName="nIdDocenteSugerido" />
+                <ScalarProperty Name="Usuario_nIdUsuario" ColumnName="Usuario_nIdUsuario" />
+                <ScalarProperty Name="cEstado" ColumnName="cEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carrera">
+            <EntityTypeMapping TypeName="DbContext.Carrera">
+              <MappingFragment StoreEntitySet="Carrera">
+                <ScalarProperty Name="nIdCarrera" ColumnName="nIdCarrera" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="cDescCarrera" ColumnName="cDescCarrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="DbContext.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="nIdCurso" ColumnName="nIdCurso" />
+                <ScalarProperty Name="cNombre" ColumnName="cNombre" />
+                <ScalarProperty Name="cDescCurso" ColumnName="cDescCurso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleDocente">
+            <EntityTypeMapping TypeName="DbContext.DetalleDocente">
+              <MappingFragment StoreEntitySet="DetalleDocente">
+                <ScalarProperty Name="idDetalleDocente" ColumnName="idDetalleDocente" />
+                <ScalarProperty Name="Carrera_nIdCarrera" ColumnName="Carrera_nIdCarrera" />
+                <ScalarProperty Name="Curso_nIdCurso" ColumnName="Curso_nIdCurso" />
+                <ScalarProperty Name="Docente_nIdDocente" ColumnName="Docente_nIdDocente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Docente">
+            <EntityTypeMapping TypeName="DbContext.Docente">
+              <MappingFragment StoreEntitySet="Docente">
+                <ScalarProperty Name="nIdDocente" ColumnName="nIdDocente" />
+                <ScalarProperty Name="cNombres" ColumnName="cNombres" />
+                <ScalarProperty Name="cApePaterno" ColumnName="cApePaterno" />
+                <ScalarProperty Name="cApeMaterno" ColumnName="cApeMaterno" />
+                <ScalarProperty Name="cEstado" ColumnName="cEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocenteSugerido">
+            <EntityTypeMapping TypeName="DbContext.DocenteSugerido">
+              <MappingFragment StoreEntitySet="DocenteSugerido">
+                <ScalarProperty Name="nIdDocenteSugerido" ColumnName="nIdDocenteSugerido" />
+                <ScalarProperty Name="cNombres" ColumnName="cNombres" />
+                <ScalarProperty Name="cApePaterno" ColumnName="cApePaterno" />
+                <ScalarProperty Name="cApeMaterno" ColumnName="cApeMaterno" />
+                <ScalarProperty Name="Carrera_nIdCarrera" ColumnName="Carrera_nIdCarrera" />
+                <ScalarProperty Name="Curso_nIdCurso" ColumnName="Curso_nIdCurso" />
+                <ScalarProperty Name="Usuario_nIdUsuario" ColumnName="Usuario_nIdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RankingDocente">
+            <EntityTypeMapping TypeName="DbContext.RankingDocente">
+              <MappingFragment StoreEntitySet="RankingDocente">
+                <ScalarProperty Name="nPuntuacionPromedio" ColumnName="nPuntuacionPromedio" />
+                <ScalarProperty Name="idRankingDocente" ColumnName="idRankingDocente" />
+                <ScalarProperty Name="cComentarios" ColumnName="cComentarios" />
+                <ScalarProperty Name="nPuntucionCriterio1" ColumnName="nPuntucionCriterio1" />
+                <ScalarProperty Name="nPuntucionCriterio2" ColumnName="nPuntucionCriterio2" />
+                <ScalarProperty Name="nPuntucionCriterio3" ColumnName="nPuntucionCriterio3" />
+                <ScalarProperty Name="dtFecha" ColumnName="dtFecha" />
+                <ScalarProperty Name="nIdUsuario" ColumnName="nIdUsuario" />
+                <ScalarProperty Name="nIdDetalleDocente" ColumnName="nIdDetalleDocente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoUsuario">
+            <EntityTypeMapping TypeName="DbContext.TipoUsuario">
+              <MappingFragment StoreEntitySet="TipoUsuario">
+                <ScalarProperty Name="nIdTipoUsuario" ColumnName="nIdTipoUsuario" />
+                <ScalarProperty Name="cDescTipoUsuario" ColumnName="cDescTipoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DbContext.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="nIdUsuario" ColumnName="nIdUsuario" />
+                <ScalarProperty Name="cContrasena" ColumnName="cContrasena" />
+                <ScalarProperty Name="cNombres" ColumnName="cNombres" />
+                <ScalarProperty Name="cApePaterno" ColumnName="cApePaterno" />
+                <ScalarProperty Name="cApeMaterno" ColumnName="cApeMaterno" />
+                <ScalarProperty Name="cCorreo" ColumnName="cCorreo" />
+                <ScalarProperty Name="cEstado" ColumnName="cEstado" />
+                <ScalarProperty Name="nIdTipoUsuario" ColumnName="nIdTipoUsuario" />
+                <ScalarProperty Name="nIdCarrera" ColumnName="nIdCarrera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DbContext.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DbContext.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DbContext.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DbContext.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DbContext.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DbContext.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DbContext.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_INS_RegistrarUsuario" FunctionName="DbContext.Store.USP_INS_RegistrarUsuario" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="false" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams />
+  </edmx:Designer>
+</edmx:Edmx>

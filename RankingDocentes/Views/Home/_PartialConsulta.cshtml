@@ -1,0 +1,142 @@
+﻿@model IEnumerable<RankingDocentes.Models.RankingDocente>
+<div class="table-responsive">
+    @*@Html.ActionLink("Calificar", "DocenteCalificar", "Docente", null, new { @class = "nav-link" })|
+        <a class="BtnEdit" href="#" data-value="1">Ver Comentarios</a>*@
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Docente
+                </th>
+                <th>
+                    Enseñanza
+                </th>
+                <th>
+                    Facilidades del Alumno
+                </th>
+                <th>
+                    Rigurosidad
+                </th>
+                <th>
+                    Promedio
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DetalleDocente.Docente.cNombres)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nPuntucionCriterio1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nPuntucionCriterio2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nPuntucionCriterio3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nPuntuacionPromedio)
+                    </td>
+                    <td>
+                        @if (Session["IdUsuario"] != null)
+                        {
+                            @Html.ActionLink("Calificar", "DocenteCalificar", "Docente") @:|
+                        }
+                        <a class="BtnEdit" href="#" data-value="1">Ver Comentarios</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="EditModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-auto">
+                        <label>Curso :</label>
+                        <span class="h6"> [Nombre Curso]</span>
+                    </div>
+                    <div class="col-md-auto">
+                        <label>Docente :</label>
+                        <span class="h6"> [Nombre Docente]</span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col text-right">
+                        <a href="#" class="btn btn-danger btn-sm">Calificar Docente</a>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="container container-fluid">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <span class="card-title">Alumno</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title">Fecha</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title">Criterio</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title">Criterio</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title">Criterio</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <span class="card-title h8">Gianmarco Pillaca</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title h8">11/09/2018 01:51</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title h8">5</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title h8">4</span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="card-title h8">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    c1 = [Enseñanza]
+                                    c2 = [Facilidad]
+                                    c3 = [Rigurosidad]
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

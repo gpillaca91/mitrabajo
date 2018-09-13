@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Consulta Ránking";
+}
+<div class="jumbotron jumbotron-fluid m-md-5">
+    <div class="container">
+        <h1>@ViewBag.Title.</h1>
+        <hr />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Carrera :</label>
+                    @Html.DropDownList("Carreras", null, "Seleccione", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    <label>Cursos :</label>
+                    @Html.DropDownList("Cursos", null, "Seleccione", htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="col-md-4 my-auto">
+                    <button id="BtnConsultar" class="btn btn-outline-success" type="button">Consultar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Partial"></div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/HomeIndex")
+}

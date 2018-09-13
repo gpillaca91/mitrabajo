@@ -1,0 +1,82 @@
+﻿@model RankingDocentes.Models.Usuario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Usuario</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nIdUsuario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nIdUsuario)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cContrasena)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cContrasena)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cNombres)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cNombres)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cApePaterno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cApePaterno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cApeMaterno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cApeMaterno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cCorreo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cCorreo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cEstado)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cEstado)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TipoUsuario.cDescTipoUsuario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TipoUsuario.cDescTipoUsuario)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Carrera.cNombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Carrera.cNombre)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
